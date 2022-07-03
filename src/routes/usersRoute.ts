@@ -15,7 +15,7 @@ router.get('/api/findAllUser', async (req: Request, res: Response) => {
         info
     } = req.body;
 
-    const query = { $and: [queryNullCheck("email", email), queryNullCheck("role", role), ] };
+    const query = { $and: [queryNullCheck("email", email), queryNullCheck("role", role)] };
 
     try {
         const user = await User.find(query);

@@ -82,9 +82,8 @@ router.post('/api/user', async (req: Request, res: Response) => {
         const result: any = await newUser.save();
         return res.status(201).send({ ...result._doc, message: 'user created' });
     }
-    catch (err) {
-        console.log("error message", err)
-        return res.status(400).send("Could not create user");
+    catch (err: any) {
+        return res.status(401).send({ message: err?.code === 11000 ? 'User already exists' : 'Something is wrong' });
     }
 
 })

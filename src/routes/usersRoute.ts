@@ -29,25 +29,17 @@ router.get('/api/findAllUser', async (req: Request, res: Response) => {
     }
 });
 
-router.get('/api/user/', async (req: Request, res: Response) => {
+router.get('/api/user/getUser', async (req: Request, res: Response) => {
     const {
-        name,
-        email,
-        password,
-        role: {
-            value: roleId,
-            label: roleName
-        },
-        phone,
-        createdAt,
-        profilePic,
-        info
-    } = req.body;
+        id
+    } = req?.query;
 
-    const query = { $and: [queryNullCheck("email", email)] };
+    const query = { id };
+
+    console.log(query)
 
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne(query);
         if (user) {
             return res.status(200).send(user);
         } else {

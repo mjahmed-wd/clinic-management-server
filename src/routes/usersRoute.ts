@@ -38,6 +38,7 @@ router.get('/api/user/', async (req: Request, res: Response) => {
             value: roleId,
             label: roleName
         },
+        phone,
         createdAt,
         profilePic,
         info
@@ -58,24 +59,19 @@ router.get('/api/user/', async (req: Request, res: Response) => {
 });
 
 router.post('/api/user', async (req: Request, res: Response) => {
-    const {
-        name,
-        email,
-        password,
-        role,
-        createdAt,
-        profilePic,
-        info
-    } = req.body;
+    // const {
+    //     name,
+    //     email,
+    //     phone,
+    //     password,
+    //     role,
+    //     createdAt,
+    //     profilePic,
+    //     info
+    // } = req.body;
 
     const newUser = new User({
-        name,
-        email,
-        password,
-        role,
-        createdAt,
-        profilePic,
-        info
+        ...req.body
     });
 
     try {

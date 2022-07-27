@@ -76,29 +76,18 @@ router.post('/api/user', async (req: Request, res: Response) => {
 
 })
 
-router.put('/api/user', async (req: Request, res: Response) => {
+router.put('/api/user/editUser', async (req: Request, res: Response) => {
     const {
-        name,
-        email,
-        password,
-        role,
-        createdAt,
-        profilePic,
-        info
-    } = req.body;
+        id
+    } = req.query;
 
-    const query = { $and: [queryNullCheck("email", email)] };
+    const query = { id };
 
+    console.log({ query, body: req.body })
 
     try {
         await User.findOneAndUpdate(query, {
-            name,
-            email,
-            password,
-            role,
-            createdAt,
-            profilePic,
-            info
+            ...req.body
         }, {})
         return res.status(201).send({ message: 'user updated' });
 

@@ -34,7 +34,7 @@ router.get('/api/user/getUser', async (req: Request, res: Response) => {
         id
     } = req?.query;
 
-    const query = { id };
+    const query = { _id: id };
 
     console.log(query)
 
@@ -80,14 +80,31 @@ router.put('/api/user/editUser', async (req: Request, res: Response) => {
     const {
         id
     } = req.query;
+    const {
+        name,
+        // email,
+        phone,
+        password,
+        role,
+        createdAt,
+        profilePic,
+        info
+    } = req.body;
 
-    const query = { id };
+    const query = { _id: id };
 
     console.log({ query, body: req.body })
 
     try {
         await User.findOneAndUpdate(query, {
-            ...req.body
+            name,
+            // email,
+            phone,
+            password,
+            role,
+            createdAt,
+            profilePic,
+            info
         }, {})
         return res.status(201).send({ message: 'user updated' });
 
